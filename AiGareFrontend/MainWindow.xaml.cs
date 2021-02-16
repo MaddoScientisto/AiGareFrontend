@@ -301,8 +301,8 @@ namespace AiGareFrontend
                 {
                     var file = csvFiles[i];
                     var fileData = File.ReadAllText(file);
-                    fileData = fileData.Replace("filename,text\r\r\n", "");
-                    
+                    fileData = fileData.Replace("filename,text\r\r\n", "").Replace("\r\r", "");
+
                     File.AppendAllText(firstFile, fileData);
 
                     File.Delete(file);
