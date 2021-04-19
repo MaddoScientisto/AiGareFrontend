@@ -301,13 +301,18 @@ namespace AiGareFrontend
                 {
                     var file = csvFiles[i];
                     var fileData = File.ReadAllText(file);
-                    fileData = fileData.Replace("filename,text\r\r\n", "").Replace("\r\r", "");
+                    fileData = fileData.Replace("filename,text\r\r\n", "");
+                    //fileData = fileData.Replace("\n\r", "");
 
                     File.AppendAllText(firstFile, fileData);
 
                     File.Delete(file);
                 }
             }
+
+            var fd = File.ReadAllText(csvFiles[0]);
+            fd = fd.Replace("\r\n", "");
+            File.WriteAllText(csvFiles[0], fd);
 
             MessageBox.Show("finito");
         }
