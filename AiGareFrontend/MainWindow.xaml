@@ -23,7 +23,7 @@
         <Button Content="Apri cartella" x:Name="btnOpenFolderDestination" HorizontalAlignment="Left" Margin="170,103,0,0" VerticalAlignment="Top" Click="Button_Click_2" Height="27" Width="89" Grid.Column="1"/>
         <CheckBox Content="Elabora &#xD;&#xA;Sottocartelle" HorizontalAlignment="Left" x:Name="chkRecursive" Margin="10,182,0,0" VerticalAlignment="Top" Width="90" Height="38"/>
         <Button Content="Merge CSV" HorizontalAlignment="Left" Margin="94,165,0,0" VerticalAlignment="Top" Height="72" Width="165" Click="Button_Click" Grid.Column="1"/>
-        <Label Content="V 1.1" HorizontalAlignment="Left" Margin="223,4,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Content="V 1.2" HorizontalAlignment="Left" Margin="223,4,0,0" VerticalAlignment="Top" Grid.Column="1"/>
         <Expander Header="Opzioni avanzate" HorizontalAlignment="Left" Height="197" Margin="11,242,0,0" VerticalAlignment="Top" Width="527" Grid.ColumnSpan="2">
             <Grid Background="#FFE5E5E5">
                 <Grid/>

@@ -217,6 +217,8 @@ namespace AiGareFrontend
             //}
         }
 
+      
+
         private void StartProcess(string baseFolder, string destinationFile)
         {
             var command = txtCommand.Text.Replace("$source", baseFolder)
@@ -291,7 +293,8 @@ namespace AiGareFrontend
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var csvFolder = Path.GetDirectoryName(txtDestination.Text);
-            var csvFiles = Directory.EnumerateFiles(csvFolder, "*.csv", SearchOption.AllDirectories).ToArray();
+            var baseName = Path.GetFileNameWithoutExtension(txtDestination.Text);
+            var csvFiles = Directory.EnumerateFiles(csvFolder, $"{baseName}*.csv", SearchOption.AllDirectories).ToArray();
 
             if (csvFiles.Length > 1)
             {
