@@ -142,57 +142,66 @@ namespace AiGareFrontend
             var currentDir =
                 System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-            if (chkRecursive.IsChecked == true)
+            try
             {
-                if (DoRecursiveFolderSave)
+                if (chkRecursive.IsChecked == true)
                 {
-                    var subFolders = GetFolders(txtSource.Text);
-                    int i = 0;
-                    foreach (var subFolder in subFolders)
+                    if (DoRecursiveFolderSave)
                     {
-                        var destFile = txtDestination.Text;
-                        var currentSubFolder = subFolder.Replace(txtSource.Text, "").Remove(0, 1);
-
-                        var destFileSubFolder =
-                            $"{Path.Combine(Path.GetDirectoryName(destFile), Path.GetFileNameWithoutExtension(destFile), currentSubFolder)}";
-
-                        if (!Directory.Exists(destFileSubFolder))
+                        var subFolders = GetFolders(txtSource.Text);
+                        int i = 0;
+                        foreach (var subFolder in subFolders)
                         {
-                            Directory.CreateDirectory(destFileSubFolder);
+                            var destFile = txtDestination.Text;
+                            var currentSubFolder = subFolder.Replace(txtSource.Text, "").Remove(0, 1);
+
+                            var destFileSubFolder =
+                                $"{Path.Combine(Path.GetDirectoryName(destFile), Path.GetFileNameWithoutExtension(destFile), currentSubFolder)}";
+
+                            if (!Directory.Exists(destFileSubFolder))
+                            {
+                                Directory.CreateDirectory(destFileSubFolder);
+                            }
+
+                            //var numberedDestFile =
+                            //    $"{Path.Combine(Path.GetDirectoryName(destFile), Path.GetFileNameWithoutExtension(destFile))}_{i}{Path.GetExtension(destFile)}";
+
+                            var numberedDestFile =
+                                $"{Path.Combine(destFileSubFolder, Path.GetFileNameWithoutExtension(destFile))}_{i}{Path.GetExtension(destFile)}";
+
+
+                            StartProcess(subFolder, numberedDestFile);
+                            i++;
                         }
-
-                        //var numberedDestFile =
-                        //    $"{Path.Combine(Path.GetDirectoryName(destFile), Path.GetFileNameWithoutExtension(destFile))}_{i}{Path.GetExtension(destFile)}";
-
-                        var numberedDestFile =
-                            $"{Path.Combine(destFileSubFolder, Path.GetFileNameWithoutExtension(destFile))}_{i}{Path.GetExtension(destFile)}";
-
-
-                        StartProcess(subFolder, numberedDestFile);
-                        i++;
                     }
+                    else
+                    {
+                        var subFolders = GetFolders(txtSource.Text);
+                        int i = 0;
+                        foreach (var subFolder in subFolders)
+                        {
+                            var destFile = txtDestination.Text;
+
+                            var numberedDestFile =
+                                $"{Path.Combine(Path.GetDirectoryName(destFile), Path.GetFileNameWithoutExtension(destFile))}_{i}{Path.GetExtension(destFile)}";
+
+                            StartProcess(subFolder, numberedDestFile);
+                            i++;
+                        }
+                    }
+
+
                 }
                 else
                 {
-                    var subFolders = GetFolders(txtSource.Text);
-                    int i = 0;
-                    foreach (var subFolder in subFolders)
-                    {
-                        var destFile = txtDestination.Text;
-
-                        var numberedDestFile =
-                            $"{Path.Combine(Path.GetDirectoryName(destFile), Path.GetFileNameWithoutExtension(destFile))}_{i}{Path.GetExtension(destFile)}";
-
-                        StartProcess(subFolder, numberedDestFile);
-                        i++;
-                    }
+                    StartProcess(txtSource.Text, txtDestination.Text);
                 }
-
-
             }
-            else
+            catch (Exception exception)
             {
-                StartProcess(txtSource.Text, txtDestination.Text);
+                MessageBox.Show(exception.Message);
+                Console.WriteLine(exception);
+
             }
 
             //var command = txtCommand.Text.Replace("$source", txtSource.Text)
@@ -217,7 +226,7 @@ namespace AiGareFrontend
             //}
         }
 
-      
+
 
         private void StartProcess(string baseFolder, string destinationFile)
         {
