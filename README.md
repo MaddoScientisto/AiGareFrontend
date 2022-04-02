@@ -1,0 +1,1 @@
+This is a simple frontend to launch an AI script made in python, the frontend should be generic enough to launch anything but it's optimized to launch the script on all the subfolders of a given folder
